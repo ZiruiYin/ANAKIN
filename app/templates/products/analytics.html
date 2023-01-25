@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<body>
+  <h1>Number of Products in market by category</h1>
+<canvas id="myChart1" style="width: 5px;"></canvas>
+
+<div center><h1>Value of products in market by category</h1></div>
+<canvas id="myChart" style="width:5px;"></canvas>
+
+<script>
+  var xValues = ('{{a1}}').split(",");
+  var yValues = ('{{a2}}').split(",");
+  var barColors = ["red", "green","blue","orange","brown","pink"];
+  new Chart("myChart", {
+    type: "doughnut",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      legend: {display: true},
+      title: {
+        display: true,
+        text: "",
+        font: {
+                        size: 40
+                    }
+      }
+    }
+  });
+  var xValues = ('{{c1}}').split(",");
+  var yValues = ('{{c2}}').split(",");
+  var barColors = ["red", "green","blue","orange","brown","pink"];
+  
+  new Chart("myChart1", {
+    type: "doughnut",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      legend: {display: true},
+      title: {
+        display: true,
+        text: "",
+        font: {
+                        size: 40
+                    }
+        
+      }
+    }
+  });
+  </script>
+  
+{% endblock %}
+
