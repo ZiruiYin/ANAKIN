@@ -4,73 +4,60 @@
 <head>
   <title>Mini Amazon</title>
   <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/example.css') }}">
+  <style>
+    body {
+        font-family: "Lato", sans-serif;
+    }
+
+    .main-head {
+        height: 150px;
+        background: #FFF;
+    }
+
+    .sidenav {
+        height: 100%;
+        background-color: #000;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+
+    .main {
+        padding: 0px 10px;
+    }
+
+    .login-main-text {
+        margin-top: 20%;
+        padding: 60px;
+        color: #fff;
+    }
+
+    .login-main-text h2 {
+        font-weight: 300;
+    }
+
+    .btn-black {
+        background-color: #000 !important;
+        color: #fff;
+    }
+  </style>
 </head>
 
-<header class="p-3 text-bg-dark">
-  <div class="container">
-    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      <a class="navbar-brand" href="\"><b>Mini Taobao</b></a>
-
-      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="\" class="nav-link px-2 text-white">Home</a></li>
-        <li><a href="/product/list" class="nav-link px-2 text-white">Products</a></li>
+<body>
+  <div class="sidenav">
+    {% block msg %}
+      <h1 style="color:aliceblue">Welcome to CompSci 316 Mini Amazon!</h1>
+      <div style="color: aliceblue; text-align: right; margin-bottom: 25px">
         {% if current_user.is_authenticated %}
-          {% if session['role'] == "buyer" %}
-            <li><a href="/cart/detail" class="nav-link px-2 text-white">My Cart</a></li>
-            <li><a href="/purchase/search" class="nav-link px-2 text-white">My Purchases</a></li>
-          {% else %}
-            <li><a href="/product/create" class="nav-link px-2 text-white">Create Product</a></li>
-            <li><a href="/seller/search" class="nav-link px-2 text-white">My Inventory</a></li>
-            <li><a href="/seller/fulfill" class="nav-link px-2 text-white">My Orders</a></li>
-          {% endif %}
-        {% endif %}
-      </ul>
-        <a href="/product/search">
-          <button type="button" class="btn btn-outline-light me-2">Search</button>
-        </a>
-      <div class="text-end">
-        {% if current_user.is_authenticated %}
-        {% if session['role'] == 'buyer'%}
-        <a href="/user/profile">
-          <button type="button" class="btn btn-outline-light me-2">My Account</button>
-        </a>
+          Hello {{current_user.firstname}}! <a href="{{ url_for('users.logout') }}" type="button" class="btn btn-light">Log out</a>
         {% else %}
-        <a href="/seller/search">
-          <button type="button" class="btn btn-outline-light me-2">My Account</button>
-        </a>
-        {% endif %}
-        <a href="/logout">
-          <button type="button" class="btn btn-warning">Logout</button>
-        </a>
-
-        {% else %}
-        <a href="/login">
-          <button type="button" class="btn btn-outline-light me-2">Login</button>
-        </a>
-        <a href="/register">
-          <button type="button" class="btn btn-warning">Sign up</button>
-        </a>
+          <a href="{{ url_for('users.login') }}" type="button" class="btn btn-light">Log in</a>
         {% endif %}
       </div>
-    </div>
+    {% endblock %}
   </div>
-</header>
-
-
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-  </div>
-  {% endif %}
-{% endwith %}
-
-<body>
   <div class="main">
     {% block content %}{% endblock %}
   </div>
