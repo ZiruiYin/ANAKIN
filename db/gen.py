@@ -3,7 +3,7 @@ import random
 from faker import Faker
 fake = Faker()
 
-num_user = 10000
+num_user = 50000
 num_movie = 20
 min_age = 10
 max_age = 80
@@ -18,12 +18,16 @@ def gen(num_user):
         row = [i, name, age]
         userlist.append(row)
         movieset = set()
-        while len(movieset) < 10:
+        while len(movieset) < 10 + random.randint(0, 5):
             movieset.add(random.randint(0, num_movie))
         for mid in movieset:
             age_movie = random.randint(min_age, age)
             rowr = [i, mid, random.randint(0, 10), age_movie]
             ratinglist.append(rowr)
+            if random.randint(0,3) == 0:
+                age_movie = random.randint(min_age, age)
+                rowr = [i, mid, random.randint(0, 10), age_movie]
+                ratinglist.append(rowr)
 
 def write_user():
     with open('user.csv', 'w') as f:
