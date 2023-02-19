@@ -22,5 +22,3 @@ def prepare(minage, maxage):
     scaler.fit(prepared_df)
     scaled_df = pd.DataFrame(scaler.transform(prepared_df), columns=prepared_df.columns)
     return scaled_df.fillna(0)
-
-print(prepare(30,50).head())

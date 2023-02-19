@@ -11,7 +11,3 @@ def get_pca(df):
     pca_df = pca.fit_transform(df)
     pca_df = pd.DataFrame(data=pca_df, columns=['PC1', 'PC2'])
     return pca_df
-
-print(get_data(30,50).head)
-print("PCA")
-print(get_pca(get_data(30,50)).head())
