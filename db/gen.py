@@ -3,10 +3,10 @@ import random
 from faker import Faker
 fake = Faker()
 
-num_user = 50000
-num_movie = 20
-min_age = 10
-max_age = 80
+num_user = 1000
+num_movie = 10
+min_age = 20
+max_age = 60
 
 userlist = []
 ratinglist = []

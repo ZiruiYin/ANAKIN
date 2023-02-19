@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 
 def read_ratings(minage, maxage):
     cols = ['uid', 'mid', 'rating', 'age']
@@ -17,10 +18,9 @@ def read_users():
 def prepare(minage, maxage):
     ratings = read_ratings(minage, maxage)
     prepared_df = pd.crosstab(index=ratings['uid'], columns=ratings['mid'], values=ratings['rating'], aggfunc='last')
-    normalized_df = prepared_df.apply(normalize, axis=1)
-    return normalized_df.round(2)
+    scaler = StandardScaler()
+    scaler.fit(prepared_df)
+    scaled_df = pd.DataFrame(scaler.transform(prepared_df), columns=prepared_df.columns)
+    return scaled_df.fillna(0)
 
-def normalize(row):
-    mean = np.mean(row)
-    normalized = [(value - mean) / mean if not np.isnan(value) else 0 for value in row]
-    return pd.Series(normalized)
+print(prepare(30,50).head())
