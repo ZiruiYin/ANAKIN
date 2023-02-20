@@ -4,13 +4,13 @@ from sklearn.preprocessing import StandardScaler
 
 def read_ratings(minage, maxage):
     cols = ['uid', 'mid', 'rating', 'age']
-    df = pd.read_csv('../db/rating.csv', names = cols)
+    df = pd.read_csv('../db/rating.csv', names = cols, header = None)
     df.columns = cols
     filtered_df = df[(df['age'] >= minage) & (df['age'] <= maxage)]
     return filtered_df
 
 def read_users():
-    df = pd.read_csv('../db/user.csv')
+    df = pd.read_csv('../db/user.csv', header = None)
     cols = ['uid', 'name', 'age']
     df.columns = cols
     return df
