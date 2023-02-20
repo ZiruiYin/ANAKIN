@@ -29,5 +29,3 @@ def recommend(uid, n=5):
     )
     top_movies = movie_weighted_ratings.sort_values(ascending=False).head(n)
     return top_movies
-
-print(recommend(1).index.tolist())
