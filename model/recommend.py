@@ -12,11 +12,11 @@ def recommend(uid, n=5):
     cluster_df = clustering(minage, maxage)
     cluster_value = cluster_df.loc[uid, 'Cluster']
     df = prepare_normal_false(minage, maxage)
-    filtered_df = df[cluster_df['Cluster'] == cluster_value]
+    #filtered_df = df[cluster_df['Cluster'] == cluster_value]
     #print("DF_NO_NORMAL/////////////////////////////////")
     #print(df.head())
-    #joined = pd.merge(df, cluster_df, left_index = True, right_index = True, how = 'inner')
-    #filtered_df = joined[joined['Cluster'] == cluster_value]
+    joined = pd.merge(df, cluster_df, left_index = True, right_index = True, how = 'inner')
+    filtered_df = joined[joined['Cluster'] == cluster_value]
     #print(filtered_df.head())
     user_sim_matrix = cosine_similarity(filtered_df)
     user_sim_df = pd.DataFrame(user_sim_matrix, index=filtered_df.index, columns=filtered_df.index)
