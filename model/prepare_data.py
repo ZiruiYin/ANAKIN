@@ -30,4 +30,4 @@ def prepare_normal_false(minage, maxage):
     #print("RATINGS RAW")
     #print(ratings.head(20))
     prepared_df = pd.crosstab(index=ratings['uid'], columns=ratings['mid'], values=ratings['rating'], aggfunc='last')
-    return prepared_df.fillna(0)
+    return prepared_df.apply(lambda row: row.fillna(row.mean()), axis=1)
