@@ -3,8 +3,8 @@ import random
 from faker import Faker
 fake = Faker()
 
-num_user = 1000
-num_movie = 10
+num_user = 50000
+num_movie = 40
 min_age = 20
 max_age = 60
 
@@ -18,7 +18,7 @@ def gen(num_user):
         row = [i, name, age]
         userlist.append(row)
         movieset = set()
-        while len(movieset) < 10 + random.randint(0, 5):
+        while len(movieset) < 25 + random.randint(0, 5):
             movieset.add(random.randint(0, num_movie))
         for mid in movieset:
             age_movie = random.randint(min_age, age)
