@@ -1,6 +1,7 @@
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
-from PCA import get_pca, get_data
+from PCA import get_pca
+from prepare_data import prepare
 import pandas as pd
 
 #determine k for k-mean clustering
@@ -18,11 +19,16 @@ def find_k(minage, maxage):
 
 def clustering(minage, maxage):
     k = 6 #CHANGE THIS LINE, DEBUGGING ONLY
-    kmeans = KMeans(n_clusters=5)
-    df = get_data(minage, maxage)
+    kmeans = KMeans(n_clusters=k, init='k-means++', n_init=10)
+    df = prepare(minage, maxage)
+    #print("DF//////////////////////////////////////")
+    #print(df.head())
     df_pca = get_pca(df)
+    #print("PCA//////////////////////////////////////")
+    #print(df_pca.head())
     kmeans.fit(df_pca)
     labels = kmeans.predict(df_pca)
     df_labels = pd.DataFrame(labels, columns=['Cluster'])
+    #print("LABELS//////////////////////////////////////")
+    #print(df_labels.head())
     return df_labels
-

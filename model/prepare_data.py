@@ -18,7 +18,16 @@ def read_users():
 def prepare(minage, maxage):
     ratings = read_ratings(minage, maxage)
     prepared_df = pd.crosstab(index=ratings['uid'], columns=ratings['mid'], values=ratings['rating'], aggfunc='last')
+    #print("PREPARED RAW")
+    #print(prepared_df.head())
     scaler = StandardScaler()
     scaler.fit(prepared_df)
     scaled_df = pd.DataFrame(scaler.transform(prepared_df), columns=prepared_df.columns)
     return scaled_df.fillna(0)
+
+def prepare_normal_false(minage, maxage):
+    ratings = read_ratings(minage, maxage)
+    #print("RATINGS RAW")
+    #print(ratings.head(20))
+    prepared_df = pd.crosstab(index=ratings['uid'], columns=ratings['mid'], values=ratings['rating'], aggfunc='last')
+    return prepared_df.fillna(0)

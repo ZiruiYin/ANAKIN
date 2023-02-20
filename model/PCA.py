@@ -1,9 +1,5 @@
 import pandas as pd
 from sklearn.decomposition import PCA
-from prepare_data import prepare
-
-def get_data(minage, maxage):
-    return prepare(minage, maxage)
 
 pca = PCA(n_components=2)
 
