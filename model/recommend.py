@@ -37,6 +37,6 @@ def recommend(uid, n=5):
     #movie_weighted_ratings = target_user_ratings.groupby('mid').apply(
     #    lambda x: (x['rating'] * target_user_similarities[x['uid']]).sum() / target_user_similarities[x['uid']].sum()
     #)
-    print(movie_weighted_ratings)
+    #print(movie_weighted_ratings)
     top_movies = movie_weighted_ratings.sort_values(ascending=False).head(n)
     return top_movies
